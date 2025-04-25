@@ -2,7 +2,7 @@
 import MainLayout from "@/components/MainLayout";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, HardHat } from "lucide-react";
 
 const shopData = [
   {
@@ -29,7 +29,10 @@ const MotoEquipment = () => {
   return (
     <MainLayout>
       <div className="container py-8 mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-8">МотоЭкипировка</h1>
+        <h1 className="text-3xl font-bold text-center mb-8 flex items-center justify-center gap-2">
+          <HardHat className="h-6 w-6" />
+          МотоЭкипировка
+        </h1>
         
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {shopData.map((shop, index) => (

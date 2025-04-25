@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import MainLayout from "@/components/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Helmet, HelmetIcon, Store } from "lucide-react";
+import { HardHat, Store } from "lucide-react";
 
 const ShopsPage = () => {
   const categories = [
     {
       title: "МотоЭкипировка",
-      icon: <Helmet className="h-6 w-6" />,
+      icon: <HardHat className="h-6 w-6" />,
       path: "/moto-equipment",
       description: "Магазины мотоэкипировки"
     },
@@ -23,9 +23,6 @@ const ShopsPage = () => {
 
   return (
     <MainLayout>
-      <Helmet>
-        <title>Магазины - Мото Меню</title>
-      </Helmet>
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold mb-6 text-primary">Магазины</h1>
         
