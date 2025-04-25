@@ -26,11 +26,11 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#8B5CF6",
+          DEFAULT: "#1A365D", // Темно-синий
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#0EA5E9",
+          DEFAULT: "#2C5282", // Немного светлее синий
           foreground: "#FFFFFF",
         },
         destructive: {
@@ -42,8 +42,8 @@ const config = {
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: "#4A5568", // Темно-серый с синим оттенком
+          foreground: "#FFFFFF",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
