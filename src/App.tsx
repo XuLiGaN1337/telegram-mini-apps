@@ -17,6 +17,8 @@ import MotoEvacuation from '@/pages/MotoEvacuation';
 import ProfessionalCare from '@/pages/ProfessionalCare';
 import MotoRent from '@/pages/MotoRent';
 import MotoSchools from '@/pages/MotoSchools';
+import Shop from '@/pages/Shop';
+import Cart from '@/pages/Cart';
 import './App.css';
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
         <Route path="/professional-care" element={<ProfessionalCare />} />
         <Route path="/moto-rent" element={<MotoRent />} />
         <Route path="/moto-schools" element={<MotoSchools />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
