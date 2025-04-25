@@ -2,7 +2,7 @@
 import MainLayout from "@/components/MainLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Instagram, Facebook, Youtube, Twitter, Telegram } from "lucide-react";
+import { Instagram, Facebook, Youtube, Twitter, MessageCircle } from "lucide-react";
 
 const Social = () => {
   return (
@@ -35,7 +35,7 @@ const Social = () => {
                   variant="outline" 
                   className="h-auto py-3 flex flex-col items-center gap-2 bg-gradient-to-b from-black/60 to-black/80 border-cyan-500/40 hover:bg-cyan-950/20 hover:border-cyan-400 text-cyan-300 hover:text-cyan-200 shadow-neon"
                 >
-                  <Telegram className="h-6 w-6 text-blue-400" />
+                  <MessageCircle className="h-6 w-6 text-blue-400" />
                   Telegram
                 </Button>
                 
@@ -79,7 +79,7 @@ const Social = () => {
               <div className="mt-4 space-y-2">
                 <p className="text-cyan-200 flex items-center gap-2">
                   <span className="bg-cyan-900/30 p-1 rounded-full">
-                    <Telegram className="h-4 w-4 text-cyan-400" />
+                    <MessageCircle className="h-4 w-4 text-cyan-400" />
                   </span>
                   Группа в Telegram: t.me/mototyumen
                 </p>
