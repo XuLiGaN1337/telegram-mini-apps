@@ -78,6 +78,29 @@
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
   
+  .logo-background {
+    background-image: url('/logo-moto-tyumen.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    max-width: 600px;
+    max-height: 600px;
+    z-index: -1;
+  }
+  
+  .card-translucent {
+    background-color: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+  }
+  
   @keyframes pulse {
     0%, 100% {
       opacity: 1;

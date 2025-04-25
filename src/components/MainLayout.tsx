@@ -70,12 +70,12 @@ const MainLayout = ({ children, showBackButton = true }: MainLayoutProps) => {
         </div>
       </header>
       
-      <main className="flex-grow">
+      <main className="flex-grow relative">
         {children}
       </main>
       
       <footer className="p-4 text-center text-sm text-cyan-400/80 bg-black/50 backdrop-blur-sm border-t border-cyan-500/20">
-        © {new Date().getFullYear()} Меню MOTOTyumen
+        © {new Date().getFullYear()} MOTOTyumen FREE RIDERS
       </footer>
     </div>
   );
