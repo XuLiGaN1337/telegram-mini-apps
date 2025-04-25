@@ -2,7 +2,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
-import { HomeIcon, Motorcycle, ChevronLeft, Users, Share2 } from "lucide-react";
+import { HomeIcon, Bike, ChevronLeft, Users, Share2 } from "lucide-react";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -40,7 +40,7 @@ const MainLayout = ({ children, showBackButton = true }: MainLayoutProps) => {
           )}
           
           <div className="flex items-center gap-2">
-            <Motorcycle className="h-6 w-6 text-cyan-400 animate-pulse" />
+            <Bike className="h-6 w-6 text-cyan-400 animate-pulse" />
             <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent">
               Меню MOTOTyumen
             </h1>
