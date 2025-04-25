@@ -1,64 +1,69 @@
-
 import { Link } from "react-router-dom";
 import MainLayout from "@/components/MainLayout";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ShoppingBag, FileText, Settings, Tv } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ShoppingBag, Radio, Wrench } from "lucide-react";
 
-const IndexPage = () => {
-  const menuItems = [
-    {
-      title: "Магазины",
-      icon: <ShoppingBag className="h-6 w-6" />,
-      path: "/shops",
-      description: "Магазины мотоэкипировки и мотосалоны"
-    },
-    {
-      title: "МедиаКонтент",
-      icon: <Tv className="h-6 w-6" />,
-      path: "/media-content",
-      description: "Обучающие материалы, развлекательный контент и многое другое"
-    },
-    {
-      title: "Сервисные центры",
-      icon: <Settings className="h-6 w-6" />,
-      path: "/service-centers",
-      description: "Ремонт и обслуживание мототехники"
-    }
-  ];
-
+const Index = () => {
   return (
     <MainLayout showBackButton={false}>
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-center mb-8">
-          <div className="relative w-24 h-24 overflow-hidden rounded-full bg-primary flex items-center justify-center">
-            <FileText className="h-12 w-12 text-white" />
-          </div>
-        </div>
+      <div className="container mx-auto py-8 px-4">
+        <h1 className="text-3xl font-bold text-center mb-8 text-white">Добро пожаловать в Мото Меню</h1>
         
-        <h1 className="text-2xl font-bold text-center mb-8 text-primary">Мото Навигатор</h1>
-        
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {menuItems.map((item, index) => (
-            <Link to={item.path} key={index}>
-              <Card className="h-full transition-all hover:shadow-md hover:translate-y-[-2px] border-2 border-gray-100">
-                <CardContent className="p-6 flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center mb-4">
-                    {item.icon}
-                  </div>
-                  <h2 className="text-xl font-semibold mb-2 text-primary">{item.title}</h2>
-                  <p className="text-center text-gray-600">{item.description}</p>
-                  <Button className="mt-4 w-full bg-secondary hover:bg-secondary/90">
-                    Перейти
-                  </Button>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <Link to="/shops" className="transform transition duration-300 hover:scale-105">
+            <Card className="h-full border-2 border-primary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+              <CardHeader className="bg-gradient-to-r from-primary/20 to-transparent pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl">Магазины</CardTitle>
+                  <ShoppingBag className="h-6 w-6 text-primary animate-pulse" />
+                </div>
+                <CardDescription className="text-gray-300">
+                  МотоЭкипировка и МотоСалоны
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4">
+                <p>Ведущие магазины мотоэкипировки и салоны мототехники.</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link to="/media-content" className="transform transition duration-300 hover:scale-105">
+            <Card className="h-full border-2 border-secondary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(96,165,250,0.5)]">
+              <CardHeader className="bg-gradient-to-r from-secondary/20 to-transparent pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl">Медиа Контент</CardTitle>
+                  <Radio className="h-6 w-6 text-secondary animate-pulse" />
+                </div>
+                <CardDescription className="text-gray-300">
+                  Обучение, развлечения, техническая информация
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4">
+                <p>Полезные материалы, блоги, руководства и многое другое.</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link to="/service-centers" className="transform transition duration-300 hover:scale-105">
+            <Card className="h-full border-2 border-accent/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(147,197,253,0.5)]">
+              <CardHeader className="bg-gradient-to-r from-accent/20 to-transparent pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl">Сервисные центры</CardTitle>
+                  <Wrench className="h-6 w-6 text-accent animate-pulse" />
+                </div>
+                <CardDescription className="text-gray-300">
+                  Сервис и обслуживание мототехники
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4">
+                <p>Лучшие сервисные центры для вашего мотоцикла.</p>
+              </CardContent>
+            </Card>
+          </Link>
         </div>
       </div>
     </MainLayout>
   );
 };
 
-export default IndexPage;
+export default Index;

@@ -1,52 +1,52 @@
-
 import { Link } from "react-router-dom";
 import MainLayout from "@/components/MainLayout";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { HardHat, Store } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { HardHat, Bike } from "lucide-react";
 
-const ShopsPage = () => {
-  const categories = [
-    {
-      title: "МотоЭкипировка",
-      icon: <HardHat className="h-6 w-6" />,
-      path: "/moto-equipment",
-      description: "Магазины мотоэкипировки"
-    },
-    {
-      title: "МотоСалоны",
-      icon: <Store className="h-6 w-6" />,
-      path: "/moto-salons",
-      description: "Салоны мототехники"
-    }
-  ];
-
+const Shops = () => {
   return (
     <MainLayout>
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-6 text-primary">Магазины</h1>
+      <div className="container mx-auto py-8 px-4">
+        <h1 className="text-3xl font-bold text-center mb-8 text-white">Магазины</h1>
         
-        <div className="grid gap-4 md:grid-cols-2">
-          {categories.map((category, index) => (
-            <Link to={category.path} key={index}>
-              <Card className="h-full transition-all hover:shadow-md hover:translate-y-[-2px] border-2 border-gray-100">
-                <CardContent className="p-6 flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center mb-4 text-white">
-                    {category.icon}
-                  </div>
-                  <h2 className="text-xl font-semibold mb-2 text-primary">{category.title}</h2>
-                  <p className="text-center text-gray-600">{category.description}</p>
-                  <Button className="mt-4 w-full bg-secondary hover:bg-secondary/90">
-                    Перейти
-                  </Button>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Link to="/moto-equipment" className="transform transition duration-300 hover:scale-105">
+            <Card className="h-full border-2 border-primary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+              <CardHeader className="bg-gradient-to-r from-primary/20 to-transparent pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl">МотоЭкипировка</CardTitle>
+                  <HardHat className="h-6 w-6 text-primary animate-pulse" />
+                </div>
+                <CardDescription className="text-gray-300">
+                  Шлемы, экипировка, аксессуары
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4">
+                <p>Лучшие магазины мотоэкипировки с широким ассортиментом и доставкой.</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link to="/moto-salons" className="transform transition duration-300 hover:scale-105">
+            <Card className="h-full border-2 border-secondary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(96,165,250,0.5)]">
+              <CardHeader className="bg-gradient-to-r from-secondary/20 to-transparent pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl">МотоСалоны</CardTitle>
+                  <Bike className="h-6 w-6 text-secondary animate-pulse" />
+                </div>
+                <CardDescription className="text-gray-300">
+                  Мотоциклы, скутеры, квадроциклы
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4">
+                <p>Официальные дилерские центры и мотосалоны с новой и б/у техникой.</p>
+              </CardContent>
+            </Card>
+          </Link>
         </div>
       </div>
     </MainLayout>
   );
 };
 
-export default ShopsPage;
+export default Shops;

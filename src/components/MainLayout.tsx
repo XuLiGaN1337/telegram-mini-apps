@@ -11,12 +11,12 @@ interface MainLayoutProps {
 
 const MainLayout = ({ children, showBackButton = true }: MainLayoutProps) => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-primary text-primary-foreground p-4 flex justify-between items-center shadow-md">
+    <div className="min-h-screen flex flex-col">
+      <header className="bg-primary/90 text-primary-foreground p-4 flex justify-between items-center shadow-lg backdrop-blur-sm sticky top-0 z-10">
         <div className="flex gap-2 items-center">
           {showBackButton && (
             <Link to="/">
-              <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary/80">
+              <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary/80 rounded-full">
                 <HomeIcon className="h-5 w-5" />
               </Button>
             </Link>
@@ -24,10 +24,10 @@ const MainLayout = ({ children, showBackButton = true }: MainLayoutProps) => {
           <h1 className="text-xl font-bold">Мото Меню</h1>
         </div>
       </header>
-      <main>
+      <main className="flex-grow">
         {children}
       </main>
-      <footer className="p-4 text-center text-sm text-gray-600 mt-8 bg-gray-100">
+      <footer className="p-4 text-center text-sm text-gray-300 bg-black/50 backdrop-blur-sm">
         © {new Date().getFullYear()} Мото Меню
       </footer>
     </div>

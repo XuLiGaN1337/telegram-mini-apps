@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 const config = {
@@ -26,11 +25,11 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#1A365D", // Темно-синий
+          DEFAULT: "#3B82F6", // Светло-синий
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#2C5282", // Немного светлее синий
+          DEFAULT: "#60A5FA", // Еще светлее синий
           foreground: "#FFFFFF",
         },
         destructive: {
@@ -42,8 +41,8 @@ const config = {
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "#4A5568", // Темно-серый с синим оттенком
-          foreground: "#FFFFFF",
+          DEFAULT: "#93C5FD", // Очень светлый синий
+          foreground: "#1E3A8A", // Темно-синий текст на светлом фоне
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -68,10 +67,15 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "pulse": {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.05)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
   },
