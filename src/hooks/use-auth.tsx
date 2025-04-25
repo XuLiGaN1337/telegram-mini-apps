@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 export interface User {
@@ -18,6 +17,7 @@ interface AuthContextType {
   addAdmin: (username: string) => void;
   removeAdmin: (username: string) => void;
   getAdminsList: () => string[];
+  scriptLoaded: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [adminsList, setAdminsList] = useState<string[]>(ADMIN_USERNAMES);
+  const [scriptLoaded, setScriptLoaded] = useState(false);
 
   useEffect(() => {
     // Check for stored user on mount
@@ -57,17 +58,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem('motoAdmins', JSON.stringify(ADMIN_USERNAMES));
     }
     
+    // Load Telegram script
+    const loadTelegramScript = () => {
+      const script = document.createElement('script');
+      script.src = 'https://telegram.org/js/telegram-widget.js?22';
+      script.async = true;
+      script.onload = () => setScriptLoaded(true);
+      document.body.appendChild(script);
+    };
+    
+    loadTelegramScript();
     setIsLoading(false);
   }, []);
 
-  // Simulate Telegram login
+  // Handle Telegram login
   const login = async (telegramData?: any) => {
     setIsLoading(true);
     
     try {
       // If real Telegram data provided
       if (telegramData) {
-        // In real implementation, validate the data with backend
+        // Process the Telegram auth data
         const userData: User = {
           id: telegramData.id.toString(),
           name: `${telegramData.first_name} ${telegramData.last_name || ''}`.trim(),
@@ -140,7 +151,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         logout,
         addAdmin,
         removeAdmin,
-        getAdminsList
+        getAdminsList,
+        scriptLoaded
       }}
     >
       {children}

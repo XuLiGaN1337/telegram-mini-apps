@@ -1,6 +1,7 @@
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '@/hooks/use-auth';
+import { CartProvider } from '@/components/ui/cart-context';
+import { Toaster } from '@/components/ui/toaster';
 import Index from '@/pages/Index';
 import NotFound from '@/pages/NotFound';
 import EducationalMaterials from '@/pages/EducationalMaterials';
@@ -28,32 +29,35 @@ import './App.css';
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/educational-materials" element={<EducationalMaterials />} />
-          <Route path="/entertainment-content" element={<EntertainmentContent />} />
-          <Route path="/media-content" element={<MediaContent />} />
-          <Route path="/moto-equipment" element={<MotoEquipment />} />
-          <Route path="/moto-salons" element={<MotoSalons />} />
-          <Route path="/moto-travel" element={<MotoTravel />} />
-          <Route path="/service-centers" element={<ServiceCenters />} />
-          <Route path="/shops" element={<Shops />} />
-          <Route path="/technical-info" element={<TechnicalInfo />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/social" element={<Social />} />
-          <Route path="/moto-evacuation" element={<MotoEvacuation />} />
-          <Route path="/professional-care" element={<ProfessionalCare />} />
-          <Route path="/moto-rent" element={<MotoRent />} />
-          <Route path="/moto-schools" element={<MotoSchools />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
+      <CartProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/educational-materials" element={<EducationalMaterials />} />
+            <Route path="/entertainment-content" element={<EntertainmentContent />} />
+            <Route path="/media-content" element={<MediaContent />} />
+            <Route path="/moto-equipment" element={<MotoEquipment />} />
+            <Route path="/moto-salons" element={<MotoSalons />} />
+            <Route path="/moto-travel" element={<MotoTravel />} />
+            <Route path="/service-centers" element={<ServiceCenters />} />
+            <Route path="/shops" element={<Shops />} />
+            <Route path="/technical-info" element={<TechnicalInfo />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/social" element={<Social />} />
+            <Route path="/moto-evacuation" element={<MotoEvacuation />} />
+            <Route path="/professional-care" element={<ProfessionalCare />} />
+            <Route path="/moto-rent" element={<MotoRent />} />
+            <Route path="/moto-schools" element={<MotoSchools />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Router>
+        <Toaster />
+      </CartProvider>
     </AuthProvider>
   );
 }

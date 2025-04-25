@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,26 +58,33 @@ interface AddAdminFormProps {
 /**
  * Form for adding a new admin
  */
-const AddAdminForm = ({ adminUsername, onAdminUsernameChange, onAddAdmin }: AddAdminFormProps) => (
-  <div className="flex flex-col md:flex-row gap-4 mb-6">
-    <div className="flex-grow">
-      <Label htmlFor="adminUsername">Имя пользователя в Telegram</Label>
-      <Input
-        id="adminUsername"
-        value={adminUsername}
-        onChange={(e) => onAdminUsernameChange(e.target.value)}
-        placeholder="Например: username"
-        className="bg-transparent border-cyan-500/30"
-      />
+const AddAdminForm = ({ adminUsername, onAdminUsernameChange, onAddAdmin }: AddAdminFormProps) => {
+  const handleChange = (value: string) => {
+    // Remove @ symbol if user types it, we'll add it during display
+    onAdminUsernameChange(value.replace('@', ''));
+  };
+  
+  return (
+    <div className="flex flex-col md:flex-row gap-4 mb-6">
+      <div className="flex-grow">
+        <Label htmlFor="adminUsername">Имя пользователя в Telegram</Label>
+        <Input
+          id="adminUsername"
+          value={adminUsername}
+          onChange={(e) => handleChange(e.target.value)}
+          placeholder="Например: username (без @)"
+          className="bg-transparent border-cyan-500/30"
+        />
+      </div>
+      <div className="flex items-end">
+        <Button onClick={onAddAdmin} disabled={!adminUsername.trim()}>
+          <UserPlus className="h-4 w-4 mr-2" />
+          Добавить
+        </Button>
+      </div>
     </div>
-    <div className="flex items-end">
-      <Button onClick={onAddAdmin} disabled={!adminUsername.trim()}>
-        <UserPlus className="h-4 w-4 mr-2" />
-        Добавить
-      </Button>
-    </div>
-  </div>
-);
+  );
+};
 
 interface AdminsListProps {
   adminsList: string[];
