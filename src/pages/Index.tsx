@@ -2,13 +2,13 @@
 import { Link } from "react-router-dom";
 import MainLayout from "@/components/MainLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ShoppingBag, Radio, Wrench } from "lucide-react";
+import { ShoppingBag, Radio, Wrench, TruckIcon, Sparkles, Spray, Car, GraduationCap } from "lucide-react";
 
 const Index = () => {
   return (
     <MainLayout showBackButton={false}>
       <div className="container mx-auto py-8 px-4 relative">
-        <div className="logo-background"></div>
+        <div className="moto-logo"></div>
         
         <h1 className="text-3xl font-bold text-center mb-8 text-white">Добро пожаловать в MOTOTyumen</h1>
         
@@ -60,6 +60,74 @@ const Index = () => {
               </CardHeader>
               <CardContent className="pt-4">
                 <p>Лучшие сервисные центры для вашего мотоцикла.</p>
+              </CardContent>
+            </Card>
+          </Link>
+          
+          <Link to="/moto-evacuation" className="transform transition duration-300 hover:scale-105">
+            <Card className="h-full border-2 border-primary/20 card-translucent text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+              <CardHeader className="bg-gradient-to-r from-primary/20 to-transparent pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl">МотоЭвакуатор</CardTitle>
+                  <TruckIcon className="h-6 w-6 text-primary animate-pulse" />
+                </div>
+                <CardDescription className="text-gray-300">
+                  Эвакуация мотоциклов
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4">
+                <p>Надежные службы эвакуации мототехники в любое время суток.</p>
+              </CardContent>
+            </Card>
+          </Link>
+          
+          <Link to="/professional-care" className="transform transition duration-300 hover:scale-105">
+            <Card className="h-full border-2 border-secondary/20 card-translucent text-white shadow-[0_0_15px_rgba(96,165,250,0.5)]">
+              <CardHeader className="bg-gradient-to-r from-secondary/20 to-transparent pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl">Профессиональный уход</CardTitle>
+                  <Sparkles className="h-6 w-6 text-secondary animate-pulse" />
+                </div>
+                <CardDescription className="text-gray-300">
+                  Уход за мототехникой
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4">
+                <p>Профессиональные услуги по детейлингу и уходу за мотоциклом.</p>
+              </CardContent>
+            </Card>
+          </Link>
+          
+          <Link to="/moto-rent" className="transform transition duration-300 hover:scale-105">
+            <Card className="h-full border-2 border-accent/20 card-translucent text-white shadow-[0_0_15px_rgba(147,197,253,0.5)]">
+              <CardHeader className="bg-gradient-to-r from-accent/20 to-transparent pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl">Аренда мото</CardTitle>
+                  <Car className="h-6 w-6 text-accent animate-pulse" />
+                </div>
+                <CardDescription className="text-gray-300">
+                  Аренда мототехники
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4">
+                <p>Широкий выбор мотоциклов для аренды на любой срок.</p>
+              </CardContent>
+            </Card>
+          </Link>
+          
+          <Link to="/moto-schools" className="transform transition duration-300 hover:scale-105">
+            <Card className="h-full border-2 border-primary/20 card-translucent text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+              <CardHeader className="bg-gradient-to-r from-primary/20 to-transparent pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-xl">МотоШколы</CardTitle>
+                  <GraduationCap className="h-6 w-6 text-primary animate-pulse" />
+                </div>
+                <CardDescription className="text-gray-300">
+                  Обучение вождению мотоцикла
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4">
+                <p>Лучшие школы для начинающих и опытных мотоциклистов.</p>
               </CardContent>
             </Card>
           </Link>
