@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import MainLayout from "@/components/MainLayout";
+import { MainLayout } from "@/components/layout/MainLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen, Film, FileText, Compass } from "lucide-react";
 
