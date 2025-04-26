@@ -1,205 +1,315 @@
-import { useState } from "react";
-import MainLayout from "@/components/MainLayout";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useState } from "react";
+import { MainLayout } from "@/components/layout/MainLayout";
+import { 
+  Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, Calendar, MapPin, Clock, Users } from "lucide-react";
+import { 
+  Calendar, MapPin, Clock, Users, Filter, AlertTriangle
+} from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
 
-interface Event {
+// Типы событий
+type EventCategory = "rides" | "competitions" | "meetings" | "training";
+
+// Интерфейс события
+interface MotoEvent {
   id: number;
   title: string;
   description: string;
-  date: string;
+  date: Date;
   location: string;
   time: string;
-  attendees: number;
+  participants: number;
+  maxParticipants?: number;
+  category: EventCategory;
   image: string;
-  category: "upcoming" | "past" | "all";
+  isRegistrationOpen: boolean;
 }
 
-const MotoEvents = () => {
-  const [activeTab, setActiveTab] = useState<string>("upcoming");
+// Данные о событиях
+const MOTO_EVENTS: MotoEvent[] = [
+  {
+    id: 1,
+    title: "Открытие мото-сезона 2025",
+    description: "Традиционное открытие мотосезона в Тюмени с парадом мотоциклов по центральным улицам города",
+    date: new Date(2025, 4, 5), // 5 мая 2025
+    location: "Центральная площадь, Тюмень",
+    time: "12:00",
+    participants: 187,
+    maxParticipants: 300,
+    category: "meetings",
+    image: "https://images.unsplash.com/photo-1558979158-65a1eaa08691?q=80&w=600",
+    isRegistrationOpen: true
+  },
+  {
+    id: 2,
+    title: "Мотопробег Тюмень-Тобольск",
+    description: "Однодневный мотопробег по историческому маршруту с посещением достопримечательностей",
+    date: new Date(2025, 5, 12), // 12 июня 2025
+    location: "Старт: Памятник Ермаку, Тюмень",
+    time: "09:00",
+    participants: 42,
+    maxParticipants: 50,
+    category: "rides",
+    image: "https://images.unsplash.com/photo-1519750783826-e2420f4d687f?q=80&w=600",
+    isRegistrationOpen: true
+  },
+  {
+    id: 3,
+    title: "Кубок Урала по мотокроссу",
+    description: "Региональные соревнования по мотокроссу. Участие только для профессионалов с лицензией",
+    date: new Date(2025, 6, 25), // 25 июля 2025
+    location: "Мототрасса «Восточная», Тюмень",
+    time: "10:00",
+    participants: 28,
+    maxParticipants: 40,
+    category: "competitions",
+    image: "https://images.unsplash.com/photo-1614977985607-d8419ce7b0dd?q=80&w=600",
+    isRegistrationOpen: false
+  },
+  {
+    id: 4,
+    title: "Тренировка по мотоджимхане",
+    description: "Тренировка навыков маневрирования на мотоцикле на специально оборудованной площадке",
+    date: new Date(2025, 7, 8), // 8 августа 2025
+    location: "Парковка ТЦ «Мегамолл»",
+    time: "18:00",
+    participants: 15,
+    maxParticipants: 25,
+    category: "training",
+    image: "https://images.unsplash.com/photo-1571683173060-c9b4666ba55e?q=80&w=600",
+    isRegistrationOpen: true
+  },
+  {
+    id: 5,
+    title: "Закрытие мотосезона 2025",
+    description: "Торжественное закрытие мотосезона с конкурсами, выставкой мототехники и концертом",
+    date: new Date(2025, 9, 3), // 3 октября 2025
+    location: "Набережная реки Туры",
+    time: "16:00",
+    participants: 112,
+    maxParticipants: 400,
+    category: "meetings",
+    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=600",
+    isRegistrationOpen: true
+  }
+];
+
+const MotoEvents: React.FC = () => {
+  const [selectedTab, setSelectedTab] = useState<string>("all");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   
-  const events: Event[] = [
-    {
-      id: 1,
-      title: "Открытие мотосезона 2025",
-      description: "Традиционное открытие мотосезона в Тюмени. Сбор мотоциклистов, парад по городу и праздничный концерт.",
-      date: "15 мая 2025",
-      location: "Центральная площадь, Тюмень",
-      time: "12:00",
-      attendees: 320,
-      image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-      category: "upcoming"
-    },
-    {
-      id: 2,
-      title: "Мото-фестиваль «Свобода на колёсах»",
-      description: "Двухдневный фестиваль с музыкой, конкурсами, выставкой кастомных мотоциклов и многим другим.",
-      date: "5-6 июня 2025",
-      location: "Загородный клуб «Сосновый Бор»",
-      time: "10:00 - 22:00",
-      attendees: 500,
-      image: "https://images.unsplash.com/photo-1573395444255-81668d768915?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-      category: "upcoming"
-    },
-    {
-      id: 3,
-      title: "Мото-пробег «Памяти героев»",
-      description: "Патриотический мото-пробег по местам боевой славы Тюменской области.",
-      date: "22 июня 2025",
-      location: "Старт: Вечный огонь, Тюмень",
-      time: "09:00",
-      attendees: 150,
-      image: "https://images.unsplash.com/photo-1593599926484-52bbae85b733?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-      category: "upcoming"
-    },
-    {
-      id: 4,
-      title: "Мото-тренировка на треке",
-      description: "Тренировочный день на треке для повышения мастерства и безопасности вождения мотоцикла.",
-      date: "10 июля 2025",
-      location: "Трек «Спидвей», Боровский",
-      time: "11:00 - 17:00",
-      attendees: 80,
-      image: "https://images.unsplash.com/photo-1621954809975-882df7fcaec5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-      category: "upcoming"
-    },
-    {
-      id: 5,
-      title: "Закрытие мотосезона 2024",
-      description: "Официальное закрытие мотосезона с парадом мотоциклистов и праздничным ужином.",
-      date: "28 сентября 2024",
-      location: "Центральная площадь, Тюмень",
-      time: "15:00",
-      attendees: 290,
-      image: "https://images.unsplash.com/photo-1531804055935-76f44d7c3621?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80",
-      category: "past"
-    },
-    {
-      id: 6,
-      title: "Мото-выставка «Легенды на колёсах»",
-      description: "Выставка ретро и кастомных мотоциклов от коллекционеров и энтузиастов.",
-      date: "15 августа 2024",
-      location: "ТРЦ «Кристалл», Тюмень",
-      time: "10:00 - 20:00",
-      attendees: 450,
-      image: "https://images.unsplash.com/photo-1563396983906-b3795482a59a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1772&q=80",
-      category: "past"
-    },
-  ];
-
-  // Функция для фильтрации событий по категории
-  const filterEvents = (category: string) => {
-    if (category === "all") {
-      return events;
-    }
-    return events.filter(event => event.category === category);
+  // Фильтрация событий по категории и поисковому запросу
+  const filteredEvents = MOTO_EVENTS.filter(event => {
+    const matchesCategory = selectedTab === "all" || event.category === selectedTab;
+    const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                           event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           event.location.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+  
+  // Сортировка событий по дате (ближайшие первыми)
+  const sortedEvents = [...filteredEvents].sort((a, b) => a.date.getTime() - b.date.getTime());
+  
+  // Функция форматирования даты в русской локали
+  const formatDate = (date: Date) => {
+    return format(date, "d MMMM yyyy", { locale: ru });
   };
-
-  const displayEvents = filterEvents(activeTab);
+  
+  // Получение цвета значка категории
+  const getCategoryColor = (category: EventCategory): string => {
+    switch (category) {
+      case "rides": return "bg-green-500";
+      case "competitions": return "bg-red-500";
+      case "meetings": return "bg-blue-500";
+      case "training": return "bg-amber-500";
+      default: return "bg-gray-500";
+    }
+  };
+  
+  // Получение названия категории на русском
+  const getCategoryName = (category: EventCategory): string => {
+    switch (category) {
+      case "rides": return "Поездка";
+      case "competitions": return "Соревнования";
+      case "meetings": return "Встреча";
+      case "training": return "Тренировка";
+      default: return "Другое";
+    }
+  };
+  
+  // Проверка, является ли событие предстоящим
+  const isUpcomingEvent = (date: Date): boolean => {
+    return date >= new Date();
+  };
 
   return (
     <MainLayout>
-      <div className="container mx-auto py-8 px-4 relative z-10">
-        <div className="flex flex-col items-center justify-center mb-8">
-          <div className="flex items-center gap-2 mb-4">
-            <AlertTriangle className="h-8 w-8 text-yellow-400" />
-            <h1 className="text-3xl font-bold text-white">Мото События</h1>
+      <div className="container mx-auto py-8 px-4">
+        <h1 className="text-3xl font-bold text-center mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+          Мото-события
+        </h1>
+        
+        <p className="text-center text-gray-400 mb-8">
+          Календарь мотособытий в Тюмени и области
+        </p>
+        
+        {/* Предупреждение о регистрации */}
+        <div className="bg-amber-600/20 border border-amber-500/30 rounded-lg p-4 mb-8 max-w-4xl mx-auto">
+          <div className="flex">
+            <AlertTriangle className="h-6 w-6 text-amber-500 mr-3 flex-shrink-0" />
+            <div>
+              <h3 className="font-semibold text-amber-400 mb-1">Внимание!</h3>
+              <p className="text-gray-300 text-sm">
+                Для участия в большинстве событий необходима предварительная регистрация. 
+                Количество мест может быть ограничено. Рекомендуем регистрироваться заранее.
+              </p>
+            </div>
           </div>
-          <p className="text-center text-gray-300 max-w-2xl">
-            Актуальная информация о предстоящих и прошедших мотособытиях в Тюменской области. 
-            Присоединяйтесь к сообществу мотоциклистов и будьте в курсе всех мероприятий!
-          </p>
         </div>
-
-        <Tabs defaultValue="upcoming" className="w-full" onValueChange={setActiveTab}>
-          <div className="flex justify-center mb-6">
-            <TabsList className="grid w-full max-w-md grid-cols-3">
-              <TabsTrigger value="upcoming">Предстоящие</TabsTrigger>
-              <TabsTrigger value="past">Прошедшие</TabsTrigger>
-              <TabsTrigger value="all">Все события</TabsTrigger>
-            </TabsList>
+        
+        {/* Фильтры */}
+        <div className="mb-8">
+          <Card className="border-primary/20 bg-black/60 backdrop-blur-sm">
+            <CardContent className="pt-6">
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <Filter className="h-5 w-5 text-blue-400" />
+                  <h3 className="font-medium text-white">Фильтры</h3>
+                </div>
+                
+                <div>
+                  <Input
+                    placeholder="Поиск по названию, описанию или месту..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="bg-transparent border-cyan-500/30"
+                  />
+                </div>
+                
+                <Tabs value={selectedTab} onValueChange={setSelectedTab}>
+                  <TabsList className="bg-black/80">
+                    <TabsTrigger value="all">Все</TabsTrigger>
+                    <TabsTrigger value="rides">Поездки</TabsTrigger>
+                    <TabsTrigger value="competitions">Соревнования</TabsTrigger>
+                    <TabsTrigger value="meetings">Встречи</TabsTrigger>
+                    <TabsTrigger value="training">Тренировки</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        
+        {/* Список событий */}
+        {sortedEvents.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-xl text-gray-400">
+              События не найдены. Попробуйте изменить параметры поиска.
+            </p>
           </div>
-
-          <TabsContent value="upcoming">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {displayEvents.map(event => (
-                <EventCard key={event.id} event={event} />
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="past">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {displayEvents.map(event => (
-                <EventCard key={event.id} event={event} />
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="all">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {displayEvents.map(event => (
-                <EventCard key={event.id} event={event} />
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
-      </div>
-    </MainLayout>
-  );
-};
-
-interface EventCardProps {
-  event: Event;
-}
-
-const EventCard = ({ event }: EventCardProps) => {
-  const isPast = event.category === "past";
-
-  return (
-    <Card className={`overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 ${isPast ? 'opacity-80 grayscale' : ''}`}>
-      <div 
-        className="h-48 bg-cover bg-center" 
-        style={{ backgroundImage: `url(${event.image})` }}
-      >
-        {isPast && (
-          <div className="bg-black/70 text-white font-bold py-1 px-4 absolute rotate-45 translate-x-8 -translate-y-2">
-            Прошедшее
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sortedEvents.map(event => (
+              <Card 
+                key={event.id} 
+                className={`border-primary/20 bg-black/60 backdrop-blur-sm overflow-hidden transition-all hover:shadow-[0_0_15px_rgba(56,182,255,0.3)] ${!isUpcomingEvent(event.date) ? 'opacity-60' : ''}`}
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <Badge 
+                    className={`absolute top-2 right-2 ${getCategoryColor(event.category)}`}
+                  >
+                    {getCategoryName(event.category)}
+                  </Badge>
+                  
+                  {!isUpcomingEvent(event.date) && (
+                    <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
+                      <span className="text-white font-bold text-lg transform -rotate-12 border-2 border-white px-3 py-1">
+                        Событие прошло
+                      </span>
+                    </div>
+                  )}
+                </div>
+                
+                <CardHeader>
+                  <CardTitle className="text-xl text-white">{event.title}</CardTitle>
+                  <CardDescription className="text-gray-400">
+                    {event.description}
+                  </CardDescription>
+                </CardHeader>
+                
+                <CardContent className="space-y-3">
+                  <div className="flex items-start">
+                    <Calendar className="h-5 w-5 text-blue-400 mr-3 mt-0.5" />
+                    <div>
+                      <p className="text-sm text-gray-400">Дата:</p>
+                      <p className="text-white">{formatDate(event.date)}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start">
+                    <Clock className="h-5 w-5 text-blue-400 mr-3 mt-0.5" />
+                    <div>
+                      <p className="text-sm text-gray-400">Время:</p>
+                      <p className="text-white">{event.time}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start">
+                    <MapPin className="h-5 w-5 text-blue-400 mr-3 mt-0.5" />
+                    <div>
+                      <p className="text-sm text-gray-400">Место проведения:</p>
+                      <p className="text-white">{event.location}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start">
+                    <Users className="h-5 w-5 text-blue-400 mr-3 mt-0.5" />
+                    <div>
+                      <p className="text-sm text-gray-400">Участники:</p>
+                      <p className="text-white">
+                        {event.participants} 
+                        {event.maxParticipants ? ` / ${event.maxParticipants}` : ''}
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+                
+                <CardFooter>
+                  <Button 
+                    className="w-full" 
+                    disabled={!event.isRegistrationOpen || !isUpcomingEvent(event.date)}
+                  >
+                    {!isUpcomingEvent(event.date) 
+                      ? "Событие завершено"
+                      : event.isRegistrationOpen 
+                        ? "Зарегистрироваться" 
+                        : "Регистрация закрыта"
+                    }
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
           </div>
         )}
+        
+        <div className="mt-10 text-center">
+          <p className="text-gray-400 text-sm italic">
+            Календарь событий регулярно обновляется. Следите за изменениями.
+          </p>
+        </div>
       </div>
-      <CardHeader className="pb-2">
-        <CardTitle>{event.title}</CardTitle>
-        <CardDescription className="flex items-center gap-1">
-          <Calendar className="h-4 w-4" /> {event.date}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-2 pb-2">
-        <p className="text-sm line-clamp-2">{event.description}</p>
-        <div className="text-sm flex items-center gap-1 text-muted-foreground">
-          <MapPin className="h-4 w-4" /> {event.location}
-        </div>
-        <div className="flex justify-between text-sm text-muted-foreground">
-          <div className="flex items-center gap-1">
-            <Clock className="h-4 w-4" /> {event.time}
-          </div>
-          <div className="flex items-center gap-1">
-            <Users className="h-4 w-4" /> {event.attendees} участников
-          </div>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button 
-          variant={isPast ? "outline" : "default"} 
-          className="w-full"
-          disabled={isPast}
-        >
-          {isPast ? "Событие завершено" : "Подробнее"}
-        </Button>
-      </CardFooter>
-    </Card>
+    </MainLayout>
   );
 };
 
