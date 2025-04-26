@@ -8,7 +8,7 @@ import { MobileNavAuth } from './MobileNavAuth';
 import { useAuth } from '@/hooks/use-auth';
 import { 
   Home, ShoppingBag, Phone, MessageCircle, 
-  BookOpen, Bike, Tools, Map, Video, School, Wrench, Truck, Heart
+  BookOpen, Bike, Wrench, Map, Video, School, Heart, Truck
 } from 'lucide-react';
 
 interface MobileNavContentProps {
@@ -54,7 +54,7 @@ export const MobileNavContent = ({ open, onOpenChange }: MobileNavContentProps) 
     },
     {
       title: 'Сервис',
-      icon: <Tools className="h-4 w-4 mr-3" />,
+      icon: <Wrench className="h-4 w-4 mr-3" />,
       items: [
         { to: '/service-centers', label: 'Сервисные центры' },
         { to: '/professional-care', label: 'Профессиональный уход' },
