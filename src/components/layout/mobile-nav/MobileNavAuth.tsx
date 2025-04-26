@@ -1,7 +1,7 @@
-import { User } from '@/types/admin';
+import { User } from '@/hooks/use-auth';
+import { MobileNavSection } from './MobileNavSection';
 import { NavLink } from './NavLink';
-import { Button } from '@/components/ui/button';
-import { LogIn, LogOut, User as UserIcon, Wrench } from 'lucide-react';
+import { User as UserIcon, LogOut, AlertTriangle, ShoppingBag } from 'lucide-react';
 
 interface MobileNavAuthProps {
   user: User | null;
@@ -14,43 +14,50 @@ interface MobileNavAuthProps {
  */
 export const MobileNavAuth = ({ user, onLogout, onLinkClick }: MobileNavAuthProps) => {
   return (
-    <div className="pt-6 border-t border-primary/20">
+    <MobileNavSection 
+      title="Аккаунт" 
+      className="border-t border-primary/20 pt-4 mt-4"
+    >
       {user ? (
         <>
+          <div className="px-4 py-2 mb-2 bg-primary/10 rounded-md">
+            <p className="text-sm font-semibold">{user.name}</p>
+            <p className="text-xs text-gray-400">{user.email}</p>
+          </div>
+          
           <NavLink 
             to="/profile" 
-            icon={<UserIcon className="h-5 w-5 mr-3" />}
+            icon={<UserIcon className="h-4 w-4 mr-3" />}
             onClick={onLinkClick}
           >
-            Профиль
+            Мой профиль
           </NavLink>
-          {user.isAdmin && (
-            <NavLink 
-              to="/admin" 
-              icon={<Wrench className="h-5 w-5 mr-3" />}
-              onClick={onLinkClick}
-            >
-              Админ панель
-            </NavLink>
-          )}
-          <Button 
-            variant="ghost" 
-            className="w-full justify-start text-red-400 hover:text-red-300 hover:bg-red-950/30 py-2 px-3"
+          
+          <NavLink 
+            to="/cart" 
+            icon={<ShoppingBag className="h-4 w-4 mr-3" />}
+            onClick={onLinkClick}
+          >
+            Моя корзина
+          </NavLink>
+          
+          <button 
+            className="flex items-center w-full px-4 py-2 text-sm hover:bg-primary/10 rounded-md"
             onClick={onLogout}
           >
-            <LogOut className="h-5 w-5 mr-3" />
+            <LogOut className="h-4 w-4 mr-3" />
             Выйти
-          </Button>
+          </button>
         </>
       ) : (
         <NavLink 
           to="/login" 
-          icon={<LogIn className="h-5 w-5 mr-3" />}
+          icon={<AlertTriangle className="h-4 w-4 mr-3" />}
           onClick={onLinkClick}
         >
-          Войти
+          Войти / Регистрация
         </NavLink>
       )}
-    </div>
+    </MobileNavSection>
   );
 };
