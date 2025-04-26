@@ -19,6 +19,7 @@ import MotoEvacuation from '@/pages/MotoEvacuation';
 import ProfessionalCare from '@/pages/ProfessionalCare';
 import MotoRent from '@/pages/MotoRent';
 import MotoSchools from '@/pages/MotoSchools';
+import MotoEvents from '@/pages/MotoEvents';
 import Shop from '@/pages/Shop';
 import Cart from '@/pages/Cart';
 import Login from '@/pages/Login';
@@ -48,6 +49,7 @@ function App() {
             <Route path="/professional-care" element={<ProfessionalCare />} />
             <Route path="/moto-rent" element={<MotoRent />} />
             <Route path="/moto-schools" element={<MotoSchools />} />
+            <Route path="/moto-events" element={<MotoEvents />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
