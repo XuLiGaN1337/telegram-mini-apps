@@ -12,7 +12,7 @@ interface MainLayoutProps {
  * Main layout component for the application
  * Provides a consistent layout with header, main content area, and footer
  */
-const MainLayout = ({ children }: MainLayoutProps) => {
+export function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="min-h-screen flex flex-col bg-carbon-pattern">
       <Header />
@@ -25,6 +25,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <Footer />
     </div>
   );
-};
+}
 
 export default MainLayout;
