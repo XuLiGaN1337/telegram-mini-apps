@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/use-auth';
 import { 
   Menu, X, Home, ShoppingBag, User, LogIn, LogOut, 
-  Phone, MessageCircle, BookOpen, Video, Motorcycle,
+  Phone, MessageCircle, BookOpen, Video, Bike,
   Map, Tools, School, Wrench, Truck, Heart
 } from 'lucide-react';
 
@@ -102,7 +102,7 @@ export const MobileNav = ({ className }: MobileNavProps) => {
               <AccordionItem value="item-2" className="border-b-0">
                 <AccordionTrigger className="py-2 text-base hover:no-underline hover:text-cyan-300">
                   <div className="flex items-center">
-                    <Motorcycle className="h-4 w-4 mr-3" />
+                    <Bike className="h-4 w-4 mr-3" />
                     <span>Мотоциклы</span>
                   </div>
                 </AccordionTrigger>
