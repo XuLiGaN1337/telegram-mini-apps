@@ -8,7 +8,7 @@ import { MobileNavAuth } from './MobileNavAuth';
 import { useAuth } from '@/hooks/use-auth';
 import { 
   Home, ShoppingBag, Phone, MessageCircle, 
-  BookOpen, Bike, Wrench, Map, Video, School, Heart, Truck, AlertTriangle
+  BookOpen, Bike, Wrench, Map, AlertTriangle
 } from 'lucide-react';
 
 interface MobileNavContentProps {

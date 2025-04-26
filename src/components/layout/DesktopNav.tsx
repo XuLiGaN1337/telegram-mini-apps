@@ -1,76 +1,173 @@
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ShoppingCart, User, AlertTriangle } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { useCart } from '@/components/ui/cart-context';
+import { useAuth } from '@/hooks/use-auth';
+import { cn } from "@/lib/utils";
 
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Users, Share2, ShoppingCart, User } from "lucide-react";
-import { useAuth } from "@/hooks/use-auth";
-import { useCart } from "@/components/ui/cart-context";
-
+/**
+ * Desktop navigation component
+ */
 export const DesktopNav = () => {
-  const { user, isAdmin } = useAuth();
+  const navigate = useNavigate();
   const { getItemCount } = useCart();
+  const { user, logout } = useAuth();
+  const itemCount = getItemCount();
   
+  const [open, setOpen] = useState(false);
+  
+  const handleLogout = () => {
+    logout();
+    setOpen(false);
+  };
+
   return (
-    <div className="hidden md:flex gap-3">
-      <NavLink to="/contacts" icon={<Users className="h-4 w-4 mr-1" />} label="Контакты" />
-      <NavLink to="/social" icon={<Share2 className="h-4 w-4 mr-1" />} label="Мы в соц. сетях" />
+    <div className="hidden md:flex items-center space-x-4">
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <Link to="/shop">
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Магазин
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Информация</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                <ListItem to="/educational-materials" title="Обучающие материалы" />
+                <ListItem to="/technical-info" title="Техническая информация" />
+                <ListItem to="/media-content" title="Медиа контент" />
+                <ListItem to="/entertainment-content" title="Развлекательный контент" />
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Мотоциклы</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                <ListItem to="/moto-salons" title="Мотосалоны" />
+                <ListItem to="/moto-equipment" title="Мотоэкипировка" />
+                <ListItem to="/moto-rent" title="Аренда мотоциклов" />
+                <ListItem to="/moto-schools" title="Мотошколы" />
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Сервис</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                <ListItem to="/service-centers" title="Сервисные центры" />
+                <ListItem to="/professional-care" title="Профессиональный уход" />
+                <ListItem to="/moto-evacuation" title="Мотоэвакуация" />
+                <ListItem to="/shops" title="Магазины запчастей" />
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          
+          <NavigationMenuItem>
+            <Link to="/contacts">
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Контакты
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          
+          <NavigationMenuItem>
+            <Link to="/social">
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Соц. сети
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
       
-      <Link to="/shop">
-        <Button 
-          variant="ghost" 
-          className="text-cyan-300 hover:bg-cyan-950/30 hover:text-cyan-200 px-3 py-1 h-9 shadow-neon-sm relative"
-        >
-          <ShoppingCart className="h-4 w-4 mr-1" />
-          Магазин
-          <CartBadge count={getItemCount()} />
-        </Button>
-      </Link>
-      
-      {user ? (
-        <Link to={isAdmin ? "/admin" : "/profile"}>
-          <Button 
-            variant="ghost" 
-            className="text-cyan-300 hover:bg-cyan-950/30 hover:text-cyan-200 px-3 py-1 h-9 shadow-neon-sm"
-          >
-            <User className="h-4 w-4 mr-1" />
-            {isAdmin ? "Админ панель" : "Профиль"}
-          </Button>
+      <div className="flex items-center space-x-4">
+        {/* Cart Button */}
+        <Link to="/cart" className="relative">
+          <ShoppingCart className="h-6 w-6 text-cyan-300" />
+          {itemCount > 0 && (
+            <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 bg-red-500">
+              {itemCount}
+            </Badge>
+          )}
         </Link>
-      ) : (
-        <NavLink to="/login" icon={<User className="h-4 w-4 mr-1" />} label="Войти" />
-      )}
+        
+        {/* User Menu */}
+        <DropdownMenu open={open} onOpenChange={setOpen}>
+          <DropdownMenuTrigger asChild>
+            <button className="text-cyan-300 p-1">
+              <User className="h-6 w-6" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            {user ? (
+              <>
+                <div className="px-2 py-1.5 text-sm font-medium">
+                  Привет, {user.name || 'Пользователь'}
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => { setOpen(false); navigate('/profile'); }}>
+                  Профиль
+                </DropdownMenuItem>
+                {user.isAdmin && (
+                  <DropdownMenuItem onClick={() => { setOpen(false); navigate('/admin'); }}>
+                    Админ панель
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem onClick={handleLogout}>
+                  Выйти
+                </DropdownMenuItem>
+              </>
+            ) : (
+              <DropdownMenuItem onClick={() => { setOpen(false); navigate('/login'); }}>
+                Войти
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   );
 };
 
-interface NavLinkProps {
-  to: string;
-  icon: React.ReactNode;
-  label: string;
-}
-
-const NavLink = ({ to, icon, label }: NavLinkProps) => (
-  <Link to={to}>
-    <Button 
-      variant="ghost" 
-      className="text-cyan-300 hover:bg-cyan-950/30 hover:text-cyan-200 px-3 py-1 h-9 shadow-neon-sm"
-    >
-      {icon}
-      {label}
-    </Button>
-  </Link>
-);
-
-interface CartBadgeProps {
-  count: number;
-}
-
-const CartBadge = ({ count }: CartBadgeProps) => {
-  if (count <= 0) return null;
-  
+// Helper component for navigation items
+const ListItem = ({ to, title, children }: { to: string; title: string; children?: React.ReactNode }) => {
   return (
-    <Badge className="absolute -top-2 -right-2 bg-destructive text-xs">
-      {count}
-    </Badge>
+    <li>
+      <NavigationMenuLink asChild>
+        <Link
+          to={to}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+          )}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          {children && <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>}
+        </Link>
+      </NavigationMenuLink>
+    </li>
   );
 };
