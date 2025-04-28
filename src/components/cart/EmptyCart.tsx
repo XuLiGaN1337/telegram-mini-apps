@@ -1,25 +1,26 @@
-
-import { useNavigate } from "react-router-dom";
+import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ShoppingBag } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 /**
- * Component shown when the cart is empty
+ * Empty cart message component
  */
-export const EmptyCart = () => {
-  const navigate = useNavigate();
-  
-  return (
-    <div className="container mx-auto py-16 px-4 text-center">
-      <ShoppingBag className="mx-auto h-16 w-16 text-primary/50 mb-4" />
-      <h1 className="text-3xl font-bold text-white mb-4">Ваша корзина пуста</h1>
-      <p className="text-gray-300 mb-8">Добавьте товары из нашего магазина в корзину</p>
+const EmptyCart = () => (
+  <Card className="border-primary/20 bg-black/60 backdrop-blur-sm text-center py-12">
+    <CardContent className="flex flex-col items-center">
+      <ShoppingCart className="h-16 w-16 text-gray-500 mb-4" />
+      <h2 className="text-2xl font-medium text-white mb-2">Ваша корзина пуста</h2>
+      <p className="text-gray-400 mb-6">
+        Добавьте товары из нашего каталога, чтобы продолжить покупки
+      </p>
       <Button 
-        onClick={() => navigate("/shop")}
-        className="bg-gradient-to-r from-primary to-secondary hover:from-primary/80 hover:to-secondary/80"
+        onClick={() => window.location.href = "/shop"}
+        className="mt-2"
       >
         Перейти в магазин
       </Button>
-    </div>
-  );
-};
+    </CardContent>
+  </Card>
+);
+
+export default EmptyCart;
