@@ -9,7 +9,7 @@ import { ordersService } from "@/lib/db-service";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { CheckCircle, Minus, Plus, ShoppingCart, Trash, Warning, ArrowLeft } from "lucide-react";
+import { CheckCircle, Minus, Plus, ShoppingCart, Trash, AlertTriangle, ArrowLeft } from "lucide-react";
 
 /**
  * Shopping cart page
@@ -339,7 +339,7 @@ const OrderSummary = ({ total, onSubmit, contactInfo, onContactInfoChange }: Ord
     
     <CardFooter className="pt-0">
       <div className="text-sm text-gray-500 flex items-start gap-2">
-        <Warning className="h-4 w-4 flex-shrink-0 mt-0.5 text-yellow-500" />
+        <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5 text-yellow-500" />
         <p>
           Нажимая кнопку "Оформить заказ", вы соглашаетесь с условиями покупки и политикой конфиденциальности
         </p>
