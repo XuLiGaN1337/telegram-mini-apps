@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import MainLayout from "@/components/MainLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { HardHat, Bike, Wrench, MapPin, Tool, Clock, Shirt, School, CalendarDays } from "lucide-react";
+import { HardHat, Bike, Wrench, MapPin, Hammer, Clock, Shirt, School, CalendarDays } from "lucide-react";
 
 const Shops = () => {
   return (
@@ -83,7 +83,7 @@ const Shops = () => {
               <CardHeader className="bg-gradient-to-r from-primary/20 to-transparent pb-2">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-xl">Профессиональный уход</CardTitle>
-                  <Tool className="h-6 w-6 text-primary animate-pulse" />
+                  <Hammer className="h-6 w-6 text-primary animate-pulse" />
                 </div>
                 <CardDescription className="text-gray-300">
                   Детейлинг, мойка, консервация
