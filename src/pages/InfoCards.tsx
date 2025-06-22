@@ -1,16 +1,31 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  ShoppingBag, Radio, Wrench, TruckIcon, 
-  Sparkles, Car, GraduationCap, ShoppingCart,
-  AlertTriangle
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ShoppingBag,
+  Radio,
+  Wrench,
+  TruckIcon,
+  Sparkles,
+  Car,
+  GraduationCap,
+  ShoppingCart,
+  AlertTriangle,
 } from "lucide-react";
 
 export const InfoCards = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <Link to="/shops" className="transform transition duration-300 hover:scale-105">
-        <Card className="h-full border-2 border-primary/20 card-translucent text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+      <Link
+        to="/shops"
+        className="transform transition duration-300 hover:scale-105"
+      >
+        <Card className="h-full border-2 border-primary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
           <CardHeader className="bg-gradient-to-r from-primary/20 to-transparent pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl">Магазины</CardTitle>
@@ -26,8 +41,11 @@ export const InfoCards = () => {
         </Card>
       </Link>
 
-      <Link to="/media-content" className="transform transition duration-300 hover:scale-105">
-        <Card className="h-full border-2 border-secondary/20 card-translucent text-white shadow-[0_0_15px_rgba(96,165,250,0.5)]">
+      <Link
+        to="/media-content"
+        className="transform transition duration-300 hover:scale-105"
+      >
+        <Card className="h-full border-2 border-primary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
           <CardHeader className="bg-gradient-to-r from-secondary/20 to-transparent pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl">Медиа Контент</CardTitle>
@@ -43,8 +61,11 @@ export const InfoCards = () => {
         </Card>
       </Link>
 
-      <Link to="/service-centers" className="transform transition duration-300 hover:scale-105">
-        <Card className="h-full border-2 border-accent/20 card-translucent text-white shadow-[0_0_15px_rgba(147,197,253,0.5)]">
+      <Link
+        to="/service-centers"
+        className="transform transition duration-300 hover:scale-105"
+      >
+        <Card className="h-full border-2 border-primary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
           <CardHeader className="bg-gradient-to-r from-accent/20 to-transparent pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl">Сервисные центры</CardTitle>
@@ -59,9 +80,12 @@ export const InfoCards = () => {
           </CardContent>
         </Card>
       </Link>
-      
-      <Link to="/moto-evacuation" className="transform transition duration-300 hover:scale-105">
-        <Card className="h-full border-2 border-primary/20 card-translucent text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+
+      <Link
+        to="/moto-evacuation"
+        className="transform transition duration-300 hover:scale-105"
+      >
+        <Card className="h-full border-2 border-primary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
           <CardHeader className="bg-gradient-to-r from-primary/20 to-transparent pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl">МотоЭвакуатор</CardTitle>
@@ -76,9 +100,12 @@ export const InfoCards = () => {
           </CardContent>
         </Card>
       </Link>
-      
-      <Link to="/professional-care" className="transform transition duration-300 hover:scale-105">
-        <Card className="h-full border-2 border-secondary/20 card-translucent text-white shadow-[0_0_15px_rgba(96,165,250,0.5)]">
+
+      <Link
+        to="/professional-care"
+        className="transform transition duration-300 hover:scale-105"
+      >
+        <Card className="h-full border-2 border-primary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
           <CardHeader className="bg-gradient-to-r from-secondary/20 to-transparent pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl">Профессиональный уход</CardTitle>
@@ -93,9 +120,12 @@ export const InfoCards = () => {
           </CardContent>
         </Card>
       </Link>
-      
-      <Link to="/moto-rent" className="transform transition duration-300 hover:scale-105">
-        <Card className="h-full border-2 border-accent/20 card-translucent text-white shadow-[0_0_15px_rgba(147,197,253,0.5)]">
+
+      <Link
+        to="/moto-rent"
+        className="transform transition duration-300 hover:scale-105"
+      >
+        <Card className="h-full border-2 border-primary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
           <CardHeader className="bg-gradient-to-r from-accent/20 to-transparent pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl">Аренда мото</CardTitle>
@@ -110,9 +140,12 @@ export const InfoCards = () => {
           </CardContent>
         </Card>
       </Link>
-      
-      <Link to="/moto-schools" className="transform transition duration-300 hover:scale-105">
-        <Card className="h-full border-2 border-primary/20 card-translucent text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+
+      <Link
+        to="/moto-schools"
+        className="transform transition duration-300 hover:scale-105"
+      >
+        <Card className="h-full border-2 border-primary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
           <CardHeader className="bg-gradient-to-r from-primary/20 to-transparent pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl">МотоШколы</CardTitle>
@@ -127,9 +160,12 @@ export const InfoCards = () => {
           </CardContent>
         </Card>
       </Link>
-      
-      <Link to="/shop" className="transform transition duration-300 hover:scale-105">
-        <Card className="h-full border-2 border-secondary/20 card-translucent text-white shadow-[0_0_15px_rgba(96,165,250,0.5)]">
+
+      <Link
+        to="/shop"
+        className="transform transition duration-300 hover:scale-105"
+      >
+        <Card className="h-full border-2 border-primary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
           <CardHeader className="bg-gradient-to-r from-secondary/20 to-transparent pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl">Магазин</CardTitle>
@@ -144,9 +180,12 @@ export const InfoCards = () => {
           </CardContent>
         </Card>
       </Link>
-      
-      <Link to="/moto-events" className="transform transition duration-300 hover:scale-105">
-        <Card className="h-full border-2 border-accent/20 card-translucent text-white shadow-[0_0_15px_rgba(147,197,253,0.5)]">
+
+      <Link
+        to="/moto-events"
+        className="transform transition duration-300 hover:scale-105"
+      >
+        <Card className="h-full border-2 border-primary/20 bg-black/60 backdrop-blur-sm text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]">
           <CardHeader className="bg-gradient-to-r from-accent/20 to-transparent pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl">Мото События</CardTitle>
